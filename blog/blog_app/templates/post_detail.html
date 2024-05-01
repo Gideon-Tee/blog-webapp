@@ -1,12 +1,25 @@
 {% extends 'index.html' %}
 
+{% block header %}
+<div class="row container-flex w-100 text-center justify-content-end bg-light text-dark fixed-top mb-4" style="height:150px">
+  <h1 class="display-5 mt-5">BLOG POST</h1>
+</div>
+{% endblock %}
+
 {% block content %}
 <div class="row container-flex mt-2 w-100">
   <!-- Blog item -->
   <div class="card mb-3">
     <h2 class="card-header text-center">{{blog.title}}</h2>
     <div class="card-body">
-      <h6 class="text-muted d-inline"><i>Authored by {{blog.author}}: {{blog.created_date}}</i></h6>
+      <h6 class="text-muted d-inline">
+        <i>Authored by {{blog.author}}: {{blog.created_date}}</i>
+        {% if user.is_authenticated %}
+        <a href={% url 'delete_post' post_id %}>
+          <button class="btn btn-outline-danger position-absolute top-0 end-0">Delete</button>
+        </a>
+        {% endif %}
+      </h6>
       <p class="card-text mt-2">{{ blog.content }}</p>
       <a href={% url 'index' %} class="btn btn-outline-secondary"> << Go back</a>
     </div>

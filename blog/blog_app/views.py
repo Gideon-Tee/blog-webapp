@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
+from datetime import datetime
 from .models import Blog
 # Create your views here.
 
@@ -20,6 +21,25 @@ def post_detail(request, post_id):
     }
     return render(request, 'post_detail.html', context)
 
+def delete_post(request, post_id):
+    blog = Blog.objects.get(id=post_id)
+    blog.delete()
+    return redirect('index')
+
+def add_post(request):
+
+    if request.method == 'POST':
+        title = request.POST['title']
+        # author = request.POST['author']
+        author = request.user.username
+        content = request.POST['content']
+        created_date = datetime.now()
+
+        new_post = Blog.objects.create(title=title, author=author, content=content, created_date=created_date)
+        return redirect('index')
+
+    else:
+        return render(request, 'add_post.html')
 
 def login(request):
     if request.method == 'POST':
