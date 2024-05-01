@@ -14,21 +14,21 @@
           crossorigin="anonymous"></script>
 
   </head>
-  <body class="" style="padding-top:150px;">
-    <div class="row container-flex w-100 text-center bg-light text-dark fixed-top mb-4" style="height:150px">
+  <body class="" style="padding-top:140px;">
+    <div class="row container-flex w-100 text-center bg-light text-dark fixed-top mb-4" style="height:140px">
       <h1 class="display-5 mt-5">BLOG POST</h1>
     </div>
 
     {% block content %}
-    <div class="row container-flex mt-2 w-100" style="height:">
+    <div class="row container-flex mt-2 w-100">
       <!-- Blog item -->
-      {% for blog in blogs %}
-      <div class="card">
+      {% for blog in blogs reversed %}
+      <div class="card mb-3">
         <h5 class="card-header">{{blog.title}}</h5>
         <div class="card-body">
-          <h5 class="card-title">Authored by {{blog.author}}</h5>
-          <p class="card-text">{{blog.content}}</p>
-          <a href="#" class="btn btn-primary">View blog details</a>
+          <h6 class="text-muted d-inline"><i>Authored by {{blog.author}}: {{blog.created_date}}</i></h6>
+          <p class="card-text mt-1">{{ blog.content|truncatewords:40 }}</p>
+          <a href={% url 'post_detail' blog.id %} class="btn btn-primary">View blog post</a>
         </div>
       </div>
       {% endfor %}

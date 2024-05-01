@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="row container-flex mt-2 w-100">
+  <!-- Blog item -->
+  <div class="card mb-3">
+    <h2 class="card-header text-center">{{blog.title}}</h2>
+    <div class="card-body">
+      <h6 class="text-muted d-inline"><i>Authored by {{blog.author}}: {{blog.created_date}}</i></h6>
+      <p class="card-text mt-2">{{ blog.content }}</p>
+      <a href={% url 'index' %} class="btn btn-outline-secondary"> << Go back</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
