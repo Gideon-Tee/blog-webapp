@@ -1,0 +1,23 @@
+{% extends 'register.html' %}
+
+{% block header %}
+<div class="row container-flex w-100 text-center justify-content-end bg-light text-dark fixed-top mb-4" style="height:150px">
+  <h1 class="display-5 mt-5">BLOG POST - LOGIN</h1>
+</div>
+{% endblock %}
+
+{% block form %}
+<form class="form" action="login" method="POST">
+  {% csrf_token %}
+  <label for="username" class="form-label">Username</label>
+  <input type="text" name="username" required class="form-control">
+  <label for="password" class="form-label">Password</label>
+  <input type="password" name="password" required class="form-control">
+  <div class="row text-center d-block mt-4">
+    <input type="submit" class="btn btn-success ">
+  </div>
+  <p class="mt-2">New here? <a href="register">create an account</a></p>
+
+</form>
+
+{% endblock %}
