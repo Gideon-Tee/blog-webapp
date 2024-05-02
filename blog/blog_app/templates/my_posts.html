@@ -1,0 +1,18 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<div class="row container-flex mt-2 w-100">
+  <!-- Blog item -->
+  <h4 class="text-center text-success">My posts</h4>
+  {% for blog in my_posts reversed %}
+  <div class="card mb-3">
+    <h5 class="card-header">{{blog.title}}</h5>
+    <div class="card-body">
+      <h6 class="text-muted d-inline"><i>Published by {{blog.author}}: {{blog.created_date}}</i></h6>
+      <p class="card-text mt-1">{{ blog.content|truncatewords:40 }}</p>
+      <a href={% url 'post_detail' blog.id %} class="btn btn-primary">View blog post</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

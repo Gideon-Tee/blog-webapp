@@ -10,8 +10,15 @@ def index(request):
     context = {
     'blogs': blogs
     }
-
     return render(request, 'index.html', context)
+
+def my_posts(request):
+    my_posts = Blog.objects.filter(author=request.user.username)
+    context = {
+    'my_posts': my_posts
+    }
+    return render(request, 'my_posts.html', context)
+
 
 def post_detail(request, post_id):
     blog = Blog.objects.get(id=post_id)
@@ -23,14 +30,17 @@ def post_detail(request, post_id):
 
 def delete_post(request, post_id):
     blog = Blog.objects.get(id=post_id)
-    blog.delete()
-    return redirect('index')
+    if request.user.username == blog.author:
+        blog.delete()
+        return redirect('index')
+    else:
+        messages.error(request, 'You can only delete posts published by you')
+        return redirect('post_detail', post_id)
 
 def add_post(request):
 
     if request.method == 'POST':
         title = request.POST['title']
-        # author = request.POST['author']
         author = request.user.username
         content = request.POST['content']
         created_date = datetime.now()
